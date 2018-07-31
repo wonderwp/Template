@@ -6,7 +6,7 @@ $screen = get_current_screen();
 ?>
 <div class="list-table-wrap" data-screen="<?php echo $screen->id; ?>">
     <?php
-    /** @var \WonderWp\Component\AbstractPlugin\AbstractListTable $listTableInstance */
+    /** @var \WonderWp\Component\PluginSkeleton\ListTable\AbstractListTable $listTableInstance */
     $wp_list_table = $listTableInstance;
     $pagenum       = $wp_list_table->get_pagenum();
     $wp_list_table->prepare_items();

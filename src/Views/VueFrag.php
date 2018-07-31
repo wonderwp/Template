@@ -2,7 +2,7 @@
 
 namespace WonderWp\Component\Template\Views;
 
-use function WonderWp\Component\array_merge_recursive_distinct;
+use function WonderWp\Functions\array_merge_recursive_distinct;
 
 class VueFrag
 {

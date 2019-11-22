@@ -5,6 +5,13 @@ if (!empty($notification)) {
 }
 $request = \WonderWp\Component\HttpFoundation\Request::getInstance();
 $options = !empty($options) ? $options : [];
+$defaultFormAttributes = [
+    "method"=>"post"
+];
+if(!isset($formAttributes)){
+    $formAttributes = [];
+}
+$_formAttributes = \WonderWp\Functions\array_merge_recursive_distinct($defaultFormAttributes,$formAttributes);
 
 /* @var $options array */
 if ($request->getMethod() == 'POST' && !empty($request->request->get('saveOptions'))) {
@@ -17,10 +24,12 @@ if ($request->getMethod() == 'POST' && !empty($request->request->get('saveOption
 
 ?>
 <div class="options-wrap">
-    <form method="post" action="" class="">
+    <form <?php echo \WonderWp\Functions\paramsToHtml($_formAttributes) ?>>
 
         <table class="form-table">
-            <?php foreach ($options as $value) {
+            <?php foreach ($options
+
+            as $value) {
 
             switch ($value['type']) {
             case 'password' :
@@ -34,7 +43,7 @@ if ($request->getMethod() == 'POST' && !empty($request->request->get('saveOption
                         echo get_option($value['id']);
                     } else {
                         echo $value['std'];
-                    } ?>" />
+                    } ?>"/>
                     <span class="description"><?php echo __($value['desc']); ?></span>
                 </td>
                 </tr><?php
@@ -45,7 +54,9 @@ if ($request->getMethod() == 'POST' && !empty($request->request->get('saveOption
                 <tr>
                 <th scope="row"><label for="<?php echo $value['id']; ?>"><?php echo __($value['name']); ?></label></th>
                 <td>
-                    <select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
+                    <select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" <?php if (!empty($value['attributes'])) {
+                        echo \WonderWp\Functions\paramsToHtml($value['attributes']);
+                    } ?>>
                         <?php foreach ($value['options'] as $val => $option) { ?>
                             <option value="<?php echo $val; ?>" <?php if (get_option($value['id']) == $val) {
                                 echo ' selected="selected"';
@@ -78,7 +89,7 @@ if ($request->getMethod() == 'POST' && !empty($request->request->get('saveOption
 
             case 'title':
             ?></table>
-        <?php echo '<h3 class="opt-group opt-group-title" data-group="'.sanitize_title($value['desc']).'">' . __($value['desc']) . '</h3>';
+        <?php echo '<h3 class="opt-group opt-group-title" data-group="' . sanitize_title($value['desc']) . '">' . __($value['desc']) . '</h3>';
         ?>
         <table class="form-table opt-group" data-group="<?php echo sanitize_title($value['desc']); ?>">
             <?php
@@ -107,7 +118,7 @@ if ($request->getMethod() == 'POST' && !empty($request->request->get('saveOption
                         <div class="blocRadioSetting">
                             <input type="radio" name="<?php echo $value['id']; ?>" id="<?php echo $value['id'] . $key; ?>"
                                    value="<?php echo $key; ?>" <?php echo $checked; ?> /><label
-                                    for="<?php echo $value['id'] . $key; ?>"><?php echo $option; ?></label>
+                                for="<?php echo $value['id'] . $key; ?>"><?php echo $option; ?></label>
                         </div>
                     <?php } ?>
                 </td>
@@ -142,8 +153,8 @@ if ($request->getMethod() == 'POST' && !empty($request->request->get('saveOption
         </table>
 
         <p class="submit">
-            <input name="save" type="submit" value="<?php _e('Sauvegarder'); ?>" class="button-primary" />
-            <input type="hidden" name="saveOptions" value="true" />
+            <input name="save" type="submit" value="<?php _e('Sauvegarder'); ?>" class="button-primary"/>
+            <input type="hidden" name="saveOptions" value="true"/>
         </p>
     </form>
 </div>

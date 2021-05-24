@@ -11,7 +11,7 @@ class ListAdminView extends AdminVue
     {
         $container = Container::getInstance();
 
-        $frags = [
+        $frags = !empty($frags) ? $frags : [
             new VueFrag($container->offsetGet($prefix . '.wwp.path.templates.frags.header')),
             new VueFrag($container->offsetGet($prefix . '.wwp.path.templates.frags.tabs')),
             new VueFrag($container->offsetGet($prefix . '.wwp.path.templates.frags.list')),

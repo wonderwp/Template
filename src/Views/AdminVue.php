@@ -2,6 +2,8 @@
 
 namespace WonderWp\Component\Template\Views;
 
+use WonderWp\Component\DependencyInjection\Container;
+
 class AdminVue
 {
     /** @var VueFrag[] */
@@ -29,6 +31,16 @@ class AdminVue
     {
         /** @var $prefix string */
         //To be overridden by children
+
+        if(empty($frags)) {
+            $container = Container::getInstance();
+            $frags = [
+                new VueFrag($container->offsetGet($prefix . '.wwp.path.templates.frags.header')),
+                new VueFrag($container->offsetGet($prefix . '.wwp.path.templates.frags.tabs')),
+                new VueFrag($container->offsetGet($prefix . '.wwp.path.templates.frags.content')),
+                new VueFrag($container->offsetGet($prefix . '.wwp.path.templates.frags.footer')),
+            ];
+        }
 
         foreach ($frags as $vueFrag) {
             $this->addFrag($vueFrag);

@@ -5,6 +5,15 @@
 $screen = get_current_screen();
 ?>
 <div class="list-table-wrap" data-screen="<?php echo $screen->id; ?>">
+    <form method="get">
+        <?php
+        //check if we need to add a page parameter
+        if(!empty($_GET['page'])){
+            $page = esc_attr($_GET['page']);
+            //add the page parameter to the form
+            echo '<input type="hidden" name="page" value="' . $page . '" />';
+        }
+        ?>
     <?php
     /** @var \WonderWp\Component\PluginSkeleton\ListTable\AbstractListTable $listTableInstance */
     $wp_list_table = $listTableInstance;
@@ -20,4 +29,5 @@ $screen = get_current_screen();
     //Table of elements
     $wp_list_table->display();
     ?>
+    </form>
 </div>

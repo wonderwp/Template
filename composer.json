@@ -2,7 +2,11 @@
   "name": "wonderwp/template",
   "description": "WonderWp Template Component",
   "type": "library",
-  "keywords": ["template","WonderWp","WordPress"],
+  "keywords": [
+    "template",
+    "WonderWp",
+    "WordPress"
+  ],
   "homepage": "https://github.com/wonderwp/Template",
   "license": "MIT",
   "authors": [
@@ -22,13 +26,25 @@
     "wonderwp/dependency-injection": "dev-feature/php_8",
     "wonderwp/http-foundation": "dev-feature/increase_http_foundation_lib_version",
     "wonderwp/notification": "dev-feature/php_8",
-    "wonderwp/form": "dev-feature/increase_validation_lib_version"
+    "wonderwp/form": "dev-feature/increase_validation_lib_version",
+    "phpunit/phpunit": "^12.0",
+    "wonderwp/functions": "dev-feature/php_8"
   },
   "autoload": {
-    "psr-4": {"WonderWp\\Component\\Template\\": "src"},
+    "psr-4": {
+      "WonderWp\\Component\\Template\\": "src"
+    },
     "exclude-from-classmap": [
       "/tests/"
     ]
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "autoload-dev": {
+    "psr-4": {
+      "WonderWp\\Component\\Template\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit --configuration phpunit.xml.dist"
+  }
 }
